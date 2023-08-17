@@ -5,7 +5,7 @@ const productManager = viewService
 
 const getProductsRender = async (req, res) => {
     const user = req.session.user
-    const products = await productManager.getProducts()
+    const products = await productManager.getProductsRender()
     const productsRender = products.docs.map((item) => {
         return {
             title: item.title,
