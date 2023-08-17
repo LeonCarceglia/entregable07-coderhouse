@@ -1,7 +1,8 @@
-import { viewService } from "../services/index.js"
+import ProductsManager from "../dao/manager/db/products.js"
+import CartsManager from "../dao/manager/db/carts.js"
 
-const cartManager = viewService
-const productManager = viewService
+const cartManager = new CartsManager()
+const productManager = new ProductsManager()
 
 const getProductsRender = async (req, res) => {
     const user = req.session.user

@@ -15,13 +15,13 @@ import __dirname from "./utils.js"
 import config from "./config/config.js"
 
 const app = express()
-const connection = await mongoose.connect("mongodb+srv://leoncarceglia:coder@cluster0.ipkw6cl.mongodb.net/")
+const connection = await mongoose.connect(config.MONGODB_URL)
 
 app.use(
     session({
       store: new MongoStore({
         mongoUrl:
-          "mongodb+srv://leoncarceglia:coder@cluster0.ipkw6cl.mongodb.net/",
+          config.MONGODB_URL,
         ttl: 3600,
       }),
       secret: "CoderS3cretFelis",
@@ -46,6 +46,6 @@ app.use("/api/products", productsRouter)
 app.use("/api/carts", cartsRouter)
 app.use("/api/sessions", sessionsRouter)
 
-const httpServer = app.listen(8000, () => {
-    console.log("Server is listening on port " + 8000)
+const httpServer = app.listen(config.PORT, () => {
+  console.log(`Listening on port ${config.PORT}!`)
 })

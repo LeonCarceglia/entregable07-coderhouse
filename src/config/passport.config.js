@@ -3,6 +3,7 @@ import local from "passport-local"
 import userModel from "../dao/models/user.js"
 import GitHubStrategy from "passport-github2"
 import { createHash, isValidPassword } from "../utils.js"
+import config from "./config.js"
 
 const localStrategy = local.Strategy
 
@@ -28,6 +29,10 @@ const initializePassport = () => {
             password: createHash(password),
             cart,
             age
+          }
+          if(username === config.ADMIN_USER && password === config.ADMIN_PASS){
+            req.session.admin = true
+            newUser.role = "admin"
           }
           const result = await userModel.create(newUser)
           return done(null, result)
